@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // // DOM refs
     const nav         = document.getElementById('mainNav');
     const menuToggle  = document.getElementById('menuToggle');
     const navDropdown = document.getElementById('navDropdown');
     const navOverlay  = document.getElementById('navOverlay');
 
-    // ── Helpers ──────────────────────────────────────────────
+    // // Menu helpers
     function openMenu() {
         navDropdown.style.top = nav.getBoundingClientRect().bottom + 'px';
         navDropdown.classList.add('open');
@@ -21,47 +22,64 @@ document.addEventListener('DOMContentLoaded', () => {
         menuToggle.setAttribute('aria-expanded', 'false');
     }
 
-    // ── Hamburger toggle ──────────────────────────────────────
+    // // Hamburger toggle
     menuToggle.addEventListener('click', () => {
         navDropdown.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    // ── Klik op overlay sluit menu ────────────────────────────
+    // // Overlay sluit menu
     navOverlay.addEventListener('click', closeMenu);
 
-    // ── Klik op een nav-link sluit menu ──────────────────────
+    // // Nav-links sluiten menu
     navDropdown.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
 
-    // ── Nav: transparant → opaque bij scrollen ────────────────
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
-        // Houd dropdown uitgelijnd als hij open is
-        if (navDropdown.classList.contains('open')) {
-            navDropdown.style.top = nav.getBoundingClientRect().bottom + 'px';
-        }
-    }, { passive: true });
-
-    // ── Escape-toets sluit menu ───────────────────────────────
+    // // Escape sluit menu
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
     });
 
-    // ── Scroll-reveal via IntersectionObserver ────────────────
+    // // Scroll: nav transparant → opaque via requestAnimationFrame
+    // Voorkomt "forced synchronous layout" — lees scrollY pas inside RAF,
+    // nooit direct in de event-callback (dat blokkeert de main thread).
+    let rafPending = false;
+    let lastScrollY = window.scrollY;
+
+    function onScrollRAF() {
+        // // Lees layout-waarden hier, niet in de event listener
+        const scrolled = lastScrollY > 60;
+        nav.classList.toggle('scrolled', scrolled);
+
+        if (navDropdown.classList.contains('open')) {
+            navDropdown.style.top = nav.getBoundingClientRect().bottom + 'px';
+        }
+
+        rafPending = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        lastScrollY = window.scrollY;   // goedkoop: geen forced layout
+        if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(onScrollRAF);
+        }
+    }, { passive: true });
+
+    // // Scroll-reveal via IntersectionObserver
     const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
-    const observer  = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.15 });
 
-    revealEls.forEach(el => observer.observe(el));
+    revealEls.forEach(el => revealObserver.observe(el));
 
-    // ── Formulier afhandeling ─────────────────────────────────
+    // // Formulier afhandeling
     const luxeForm = document.getElementById('luxeForm');
     luxeForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -75,15 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const btn          = luxeForm.querySelector('.btn-submit');
         const originalText = btn.textContent;
 
-        btn.textContent    = 'Aanvraag ontvangen ◇';
+        btn.textContent      = 'Aanvraag ontvangen ◇';
         btn.style.background = 'linear-gradient(135deg, #4a7c59, #2d5a3d)';
-        btn.disabled       = true;
+        btn.disabled         = true;
 
         setTimeout(() => {
             luxeForm.reset();
-            btn.textContent  = originalText;
+            btn.textContent      = originalText;
             btn.style.background = '';
-            btn.disabled     = false;
+            btn.disabled         = false;
         }, 3500);
     });
 

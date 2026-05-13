@@ -1,0 +1,112 @@
+/* ============================================================
+   RESPONSIVE — Breakpoints voor tablet en mobiel
+   ============================================================ */
+
+/* ── ≤1024px  Laptop / groot tablet ── */
+@media (max-width: 1024px) {
+  nav          { padding: 1.3rem 3rem; }
+  nav.scrolled { padding: 1rem 3rem; }
+
+  .stats-bar   { padding: 2.5rem 3rem; }
+
+  .services,
+  .process-section,
+  .testimonials,
+  .contact-section { padding: 6rem 3rem; }
+
+  .footer-top    { padding: 3rem; gap: 2rem; }
+  .footer-bottom { padding: 1.5rem 3rem; }
+}
+
+/* ── ≤900px  Tablet liggend ── */
+@media (max-width: 900px) {
+  .footer-top   { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+/* ── ≤860px  Tablet staand ── */
+@media (max-width: 860px) {
+  .contact-wrapper         { grid-template-columns: 1fr; gap: 4rem; }
+  .contact-section::before { display: none; }
+
+  /* Dropdown iets smaller op tablet */
+  .nav-dropdown { right: 1.5rem; width: 200px; }
+}
+
+/* ── ≤768px  Mobiel (Lighthouse CLS + CPU breakpoint) ── */
+@media (max-width: 768px) {
+  /* // CLS: expliciete hoogte zodat browser ruimte reserveert vóór font-load */
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  /* // CPU: hero-grid is een duur paint-op-elke-scroll op mobiel — zet uit */
+  .hero-grid { display: none; }
+
+  /* // CPU: vereenvoudig hero-bg radial-gradients naar één laag */
+  .hero-bg {
+    background: radial-gradient(ellipse 90% 65% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 65%);
+  }
+}
+
+/* ── ≤640px  Mobiel ── */
+@media (max-width: 640px) {
+  nav          { padding: 1rem 1.4rem; }
+  nav.scrolled { padding: 0.8rem 1.4rem; }
+
+  .stats-bar            { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+  .stat-item::after     { display: none; }
+
+  .services,
+  .process-section,
+  .testimonials,
+  .contact-section      { padding: 5rem 1.5rem; }
+
+  .process-steps::before { display: none; }
+  .hero-buttons          { flex-direction: column; align-items: center; }
+
+  .footer-top   { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
+  .footer-brand { grid-column: auto; }
+  .footer-bottom{ padding: 1.2rem 1.5rem; }
+
+  /* ── Dropdown mobiel: volledige breedte, horizontale balk ── */
+  .nav-dropdown {
+    right: 0;
+    left: 0;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: 2px solid var(--gold);
+  }
+
+  .nav-dropdown ul {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .nav-dropdown ul li {
+    flex: 1;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+  }
+  .nav-dropdown ul li:last-child { border-right: none; }
+
+  .nav-link {
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.85rem 0.25rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.07em;
+    gap: 0;
+    /* Annuleer hover indent op mobiel */
+    transition: color 0.22s, background 0.22s;
+  }
+  .nav-link:hover { padding-left: 0.25rem; }
+
+  .nav-link-cta {
+    border-top: none;
+    margin-top: 0;
+  }
+}

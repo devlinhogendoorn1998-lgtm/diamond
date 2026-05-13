@@ -1,0 +1,85 @@
+/* ============================================================
+   FOOTER — Footer met werkgebied, navigatie, copyright
+   ============================================================ */
+
+footer {
+  background: #040404;
+  border-top: 1px solid var(--border);
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 1fr;
+  gap: 3rem;
+  padding: 4rem 5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+
+.footer-tagline {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.footer-coverage-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.1rem;
+}
+
+.footer-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.footer-cities span {
+  font-size: 0.7rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.22rem 0.65rem;
+  transition: color 0.25s, border-color 0.25s;
+}
+.footer-cities span:hover {
+  color: var(--gold);
+  border-color: rgba(201,168,76,0.4);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.footer-links a {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.25s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+.footer-bottom {
+  padding: 1.5rem 5rem;
+  text-align: center;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  line-height: 1.8;
+}

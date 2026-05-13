@@ -1,0 +1,169 @@
+/* ============================================================
+   NAV — Navigatiebalk, hamburger, dropdown, overlay
+   ============================================================ */
+
+/* ── Navigatiebalk ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+  background: rgba(8,8,8,0);
+  backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+
+nav.scrolled {
+  background: rgba(8,8,8,0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: var(--border);
+  padding: 1rem 5rem;
+}
+
+/* ── Logo ── */
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-diamond {
+  display: inline-block;
+  animation: rotateDiamond 10s linear infinite;
+}
+
+@keyframes rotateDiamond {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Hamburger knop ── */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.6rem 0.65rem;
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 0;
+}
+.menu-toggle:hover { border-color: var(--gold); }
+
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text);
+  transition: var(--transition);
+  transform-origin: center;
+}
+
+/* Hamburger → X animatie */
+.menu-toggle.active .hamburger-bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+  background: var(--gold);
+}
+.menu-toggle.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.menu-toggle.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+  background: var(--gold);
+}
+
+/* ── Dropdown menu ── */
+.nav-dropdown {
+  position: fixed;
+  top: 72px;        /* JS overschrijft dit dynamisch */
+  right: 2rem;
+  left: auto;
+  width: 230px;
+  z-index: 999;
+  background: rgba(10,10,10,0.98);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.nav-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.nav-dropdown ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.nav-dropdown ul li {
+  width: 100%;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.nav-dropdown ul li:last-child { border-bottom: none; }
+
+/* ── Nav links ── */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.88rem 1.5rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.22s, background 0.22s, padding-left 0.22s;
+  white-space: nowrap;
+}
+.nav-link:hover {
+  color: var(--gold);
+  background: rgba(201,168,76,0.05);
+  padding-left: 1.9rem;
+}
+
+.nav-link-cta {
+  color: var(--gold) !important;
+}
+.nav-link-cta:hover {
+  background: rgba(201,168,76,0.08);
+}
+
+/* ── Overlay (klik buiten om te sluiten) ── */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 997;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}

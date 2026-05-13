@@ -1,0 +1,110 @@
+/* ============================================================
+   BASE — Variabelen, reset, typografie, utility, knoppen
+   ============================================================ */
+
+/* ── CSS Variabelen ── */
+:root {
+  --gold:       #C9A84C;
+  --gold-light: #E8D5A3;
+  --gold-deep:  #A07830;
+  --black:      #080808;
+  --dark:       #111111;
+  --card:       #141414;
+  --text:       #F0EDE8;
+  --muted:      #9A9589;
+  --border:     rgba(201,168,76,0.22);
+  --glow:       0 0 40px rgba(201,168,76,0.15);
+  --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--black);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.02em;
+}
+
+/* ── Utility ── */
+.gold-text {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.2rem auto;
+}
+
+/* ── Knoppen ── */
+.btn-primary,
+.btn-secondary,
+.btn-submit {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.btn-primary {
+  padding: 1rem 2.8rem;
+  color: var(--black);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+  border: none;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.45);
+}
+
+.btn-secondary {
+  padding: 1rem 2.8rem;
+  font-weight: 500;
+  color: var(--gold);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 1.8rem;
+  padding: 1.1rem 2rem;
+  letter-spacing: 0.28em;
+  color: var(--black);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+  border: none;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.45);
+}
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
